@@ -1,5 +1,3 @@
-<router-outlet></router-outlet>
-
 <button (click)="getToken()">Get Token</button><br>
 Your token is: {{ token }}<br>
 
@@ -8,13 +6,10 @@ Your token is: {{ token }}<br>
 }
 
 @if(questions.length) {
+
+Points: {{ pointsService.points }}
+
 @for(question of questions; track question) {
-<div class="question">
-  Question: <span>{{ question.question }}</span><br>
-  @for(answer of question.incorrect_answers; track answer) {
-  Answer: <span [innerHTML]="answer"></span><br>
-  }
-  Answer: <span [innerHTML]="question.correct_answer"></span>
-</div>
+<app-question [question]="question"></app-question>
 }
 }

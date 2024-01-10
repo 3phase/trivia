@@ -1,0 +1,11 @@
+@if (!!_question) {
+<div class="question">
+    Question: <span [innerHTML]="_question.question"></span><br>
+    <form>
+        @for(answer of _question.answers; track answer; let index = $index) {
+        <input type='radio' [attr.data-answer-id]="index" (change)="handleChange($event)"><span
+            [innerHTML]="answer"></span><br>
+        }
+    </form>
+</div>
+}
