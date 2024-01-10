@@ -1,14 +1,13 @@
-<div class="playfield">
-  <div class="top-toolbar">
-    <div class="token">
-      <p>Your Token: <span class="token-s" [innerText]="token || 'No token present'"></span></p>
-    </div>
-    <div class="logo">Trivia</div>
-    <div class="points">
-      <p>Points: <span class="points">{{ pointsService.points }}</span></p>
-    </div>
+<div class="top-toolbar">
+  <div class="token">
+    <p>Your Token: <span class="token-s" [innerText]="token || 'No token present'"></span></p>
   </div>
-
+  <div class="logo">Trivia <span class='highlight'>Arcade</span></div>
+  <div class="points">
+    <p>Points: <span class="points">{{ pointsService.points }}</span></p>
+  </div>
+</div>
+<div class="playfield">
   @if (!token) {
   <div class="first-screen">
     <button (click)="getToken()">Get Token</button><br>
