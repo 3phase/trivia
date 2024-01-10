@@ -1,15 +1,30 @@
-<button (click)="getToken()">Get Token</button><br>
-Your token is: {{ token }}<br>
+<div class="playfield">
+  <div class="top-toolbar">
+    <div class="token">
+      <p>Token: <span class="token-s" [innerText]="token || 'No token present'"></span></p>
+    </div>
+    <div class="logo">Trivia</div>
+    <div class="points">
+      <p>Points: <span class="points">{{ pointsService.points }}</span></p>
+    </div>
+  </div>
 
-@if(token) {
-<button (click)="getQuestions()">Get Questions</button>
-}
+  @if (!token) {
+  <div class="first-screen">
+    <button (click)="getToken()">Get Token</button><br>
+  </div>
+  }
 
-@if(questions.length) {
+  @if(token && questions.length === 0) {
+  <div class="first-screen">
+    <button (click)="getQuestions()">Start</button>
+  </div>
+  }
 
-Points: {{ pointsService.points }}
+  @if(questions.length) {
 
-@for(question of questions; track question) {
-<app-question [question]="question"></app-question>
-}
-}
+  @for(question of questions; track question) {
+  <app-question [question]="question"></app-question>
+  }
+  }
+</div>

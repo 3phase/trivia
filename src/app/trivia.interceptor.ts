@@ -18,7 +18,7 @@ export class TriviaInterceptor implements HttpInterceptor {
     if (!req.url.includes(TRIVIA_BASE_URL)) return next.handle(req);
 
     const token = this.storageService.sessionToken$.value;
-    const clone = req.clone({ url: `${req.url}&token=${token}` });
+    const clone = token ? req.clone({ url: `${req.url}&token=${token}` }) : req;
 
     return next.handle(clone).pipe(
       tap((response: HttpEvent<any> & { body?: TriviaResponse }) => {
