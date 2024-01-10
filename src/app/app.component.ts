@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StorageService } from './services/storage.service';
 import { TriviaService } from './services/trivia.service';
+import { TriviaResponseQuestions } from './types/trivia-response.type';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,13 @@ export class AppComponent {
 
   getToken() {
     this.triviaService.getToken();
+  }
+
+  getQuestions() {
+    this.triviaService.getQuestions().subscribe((data: TriviaResponseQuestions) => {
+      console.log(data);
+
+    });
   }
 
 }

@@ -1,4 +1,8 @@
 <router-outlet></router-outlet>
 
-<button (click)="getToken()">Get Token</button>
-Your token is: {{ token }}
+<button (click)="getToken()">Get Token</button><br>
+Your token is: {{ token }}<br>
+
+@if(token) {
+<button (click)="getQuestions()">Get Questions</button>
+}
