@@ -6,3 +6,15 @@ Your token is: {{ token }}<br>
 @if(token) {
 <button (click)="getQuestions()">Get Questions</button>
 }
+
+@if(questions.length) {
+@for(question of questions; track question) {
+<div class="question">
+  Question: <span>{{ question.question }}</span><br>
+  @for(answer of question.incorrect_answers; track answer) {
+  Answer: <span [innerHTML]="answer"></span><br>
+  }
+  Answer: <span [innerHTML]="question.correct_answer"></span>
+</div>
+}
+}

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StorageService } from './services/storage.service';
 import { TriviaService } from './services/trivia.service';
-import { TriviaResponseQuestions } from './types/trivia-response.type';
+import { TriviaQuestion, TriviaResponseQuestions } from './types/trivia-response.type';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,8 @@ import { TriviaResponseQuestions } from './types/trivia-response.type';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
+  questions: TriviaQuestion[] = [];
 
   constructor(
     private triviaService: TriviaService,
@@ -29,8 +31,7 @@ export class AppComponent {
 
   getQuestions() {
     this.triviaService.getQuestions().subscribe((data: TriviaResponseQuestions) => {
-      console.log(data);
-
+      this.questions = data.results ?? [];
     });
   }
 
