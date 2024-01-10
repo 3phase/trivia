@@ -1,8 +1,12 @@
 .question {
     border: 1px solid var(--primary);
-    width: 50%;
+    width: 75%;
     margin: 40px auto;
     padding: 35px 10px;
     color: #bbb;
     background: #3b3b3b;
+
+    @media screen and (min-width:720px) {
+        width: 50%;
+    }
 }
