@@ -1,6 +1,6 @@
 @if (!!question) {
 <div class="question">
-    Question: <span [innerHTML]="question.question"></span><br>
+    Question {{ index }}: <span [innerHTML]="question.question"></span><br>
     <form>
         @for(answer of question.answers; track answer) {
         <input type='radio' [attr.data-answer-id]="answer.id" (change)="handleChange($event)">

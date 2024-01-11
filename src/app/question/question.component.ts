@@ -12,6 +12,9 @@ export class QuestionComponent {
   @Input('question')
   public question: TriviaQuestionWithMeta | undefined;
 
+  @Input('index')
+  public index: number = 0;
+
   constructor(
     private pointsService: PointsService
   ) { }
@@ -23,7 +26,7 @@ export class QuestionComponent {
     if (!radio) throw new Error('No selected radio button.');
 
     if (this.question.answered) {
-      alert("You have already answered this question.");
+      alert("Don't try to summon this evil.");
       radio.checked = false;
       return false;
     }
@@ -35,6 +38,7 @@ export class QuestionComponent {
 
     if (this.question.answers.find(x => x.id === +answerId)?.correct) {
       this.pointsService.points++;
+      alert("Not impressive, but correct.");
     }
 
     return true;

@@ -4,7 +4,7 @@
   </div>
   <div class="logo">Trivia <span class='highlight'>Arcade</span></div>
   <div class="points">
-    <p>Points: <span class="points">{{ pointsService.points }}</span></p>
+    <p>Points: <span class="points">{{ pointsService.points }} of {{ questions.length }}</span></p>
   </div>
 </div>
 <div class="playfield">
@@ -22,8 +22,8 @@
 
   @if(questions.length) {
 
-  @for(question of questions; track question) {
-  <app-question [question]="question"></app-question>
+  @for(question of questions; track question; let index = $index) {
+  <app-question [question]="question" [index]="index + 1"></app-question>
   }
   }
 </div>
