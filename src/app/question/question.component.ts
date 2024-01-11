@@ -35,10 +35,15 @@ export class QuestionComponent {
     if (!answerId) throw new Error('Non-correspondant radio button.');
 
     this.question.answered = true;
+    this.pointsService.answered += 1;
 
     if (this.question.answers.find(x => x.id === +answerId)?.correct) {
       this.pointsService.points++;
       alert("Not impressive, but correct.");
+    }
+
+    if (this.pointsService.end) {
+      this.pointsService.announce$.next(true);
     }
 
     return true;

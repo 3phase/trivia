@@ -12,18 +12,28 @@
   <div class="first-screen">
     <button (click)="getToken()">Get Token</button><br>
   </div>
-  }
+  } @else {
 
-  @if(token && questions.length === 0) {
+  @if(questions.length === 0) {
   <div class="first-screen">
-    <button (click)="getQuestions()">Start</button>
+    <button (click)="getQuestions()">Fight for your life</button>
   </div>
   }
 
-  @if(questions.length) {
-
+  @if(!announce) {
   @for(question of questions; track question; let index = $index) {
   <app-question [question]="question" [index]="index + 1"></app-question>
   }
   }
+
+  @if(announce) {
+  <div class="first-screen">
+    <div class="jumbotron">
+      <p [innerHTML]="getAnnouncement()"></p>
+    </div>
+  </div>
+  }
+
+  }
+
 </div>

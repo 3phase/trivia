@@ -18,6 +18,8 @@ import { TriviaQuestionWithMeta } from './types/trivia.types';
 export class AppComponent implements OnInit {
 
   questions: TriviaQuestionWithMeta[] = [];
+  announce: boolean = false;
+
   private _token = '';
   get token(): string {
     return this._token;
@@ -27,15 +29,22 @@ export class AppComponent implements OnInit {
     public pointsService: PointsService,
     private triviaService: TriviaService,
     private storageService: StorageService,
-  ) {
-    this.storageService.sessionToken$.subscribe((token: string | undefined) => {
-      if (token) this._token = token;
-    });
-  }
+  ) { }
 
   ngOnInit() {
     this.storageService.getToken();
     this.pointsService.resetPoints();
+    this.pointsService.resetAnswered();
+
+    this.storageService.sessionToken$.subscribe((token: string | undefined) => {
+      if (token) this._token = token;
+    });
+
+    this.pointsService.announce$.subscribe((announce: boolean) => {
+      if (announce) setTimeout(() => {
+        this.announce = true;
+      }, 2000);
+    })
   }
 
 
@@ -46,6 +55,9 @@ export class AppComponent implements OnInit {
   getQuestions() {
     this.triviaService.getQuestions().subscribe((data: TriviaResponseQuestions) => {
       const questions = data.results ?? [];
+
+      this.pointsService.totalQuestions = questions.length;
+      this.pointsService.resetAnswered();
 
       this.questions = questions.map((question: TriviaQuestion) => ({
         ...question,
@@ -61,9 +73,21 @@ export class AppComponent implements OnInit {
             answer: question.correct_answer,
             correct: true
           }
-        ].sort(() => Math.random() - 0.5)
+        ]
       }))
     });
+  }
+
+  getAnnouncement(): string {
+    if (this.pointsService.points < 3) {
+      return `${this.pointsService.points} points... You're doomed to the <span class='highlight'>endless abyss 😈</span>.`
+    }
+
+    if (this.pointsService.points < 7) {
+      return `Despite your ${this.pointsService.points} points... You survive... <span class='highlight'> For now...</span>`;
+    }
+
+    return `${this.pointsService.points} points... <span class='highlight'>I call you my patron...</span> 🙇`
   }
 
 }
