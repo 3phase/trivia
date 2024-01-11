@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
             answer: question.correct_answer,
             correct: true
           }
-        ]
+        ].sort(() => Math.random() - 0.5)
       }))
     });
   }
