@@ -73,14 +73,14 @@ export class AppComponent implements OnInit {
             answer: question.correct_answer,
             correct: true
           }
-        ]
+        ].sort(() => Math.random() - 0.5)
       }))
     });
   }
 
   getAnnouncement(): string {
     if (this.pointsService.points < 3) {
-      return `${this.pointsService.points} points... You're doomed to the <span class='highlight'>endless abyss 😈</span>.`
+      return `${this.pointsService.points} points... You're doomed to the <span class='highlight'>endless abyss 😈</span>`
     }
 
     if (this.pointsService.points < 7) {
