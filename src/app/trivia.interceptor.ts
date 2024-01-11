@@ -15,14 +15,15 @@ export class TriviaInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!req.url.includes(TRIVIA_BASE_URL)) return next.handle(req);
+    if (!req.url.includes(TRIVIA_BASE_URL) || req.url.includes(`${TRIVIA_BASE_URL}/api_token.php`))
+      return next.handle(req);
 
     const token = this.storageService.sessionToken$.value;
     const clone = token ? req.clone({ url: `${req.url}&token=${token}` }) : req;
 
     return next.handle(clone).pipe(
       tap((response: HttpEvent<any> & { body?: TriviaResponse }) => {
-        if (response.body?.response_code === 4) {
+        if ([3, 4].includes(response.body?.response_code)) {
           // expired token
           this.triviaService.getToken();
         }
