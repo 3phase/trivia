@@ -1,6 +1,14 @@
 <div class="top-toolbar">
   <div class="token">
-    <p>Your Token: <span class="token-s" [innerText]="token || 'No token present'"></span></p>
+    <p>Your Token:
+      <span class="token-s">
+        @if (!token) {
+        No token
+        } @else {
+        <marquee scrolldelay="250">{{ token }}</marquee>
+        }
+      </span>
+    </p>
   </div>
   <div class="logo">Trivia <span class='highlight'>Arcade</span></div>
   <div class="points">
